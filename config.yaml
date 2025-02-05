@@ -1,0 +1,3 @@
+watch:
+  - path: /var/logs/api.log
+    name: API Server
