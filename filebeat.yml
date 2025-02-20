@@ -1,0 +1,23 @@
+filebeat.inputs:
+  - type: log
+    enabled: true
+    paths:
+      - /logs/*.ndjson
+    json.keys_under_root: true
+    json.add_error_key: true
+    processors:
+      - timestamp:
+          field: timestamp
+          layouts:
+            - '2006-01-02T15:04:05.000Z07:00'
+      - rename:
+          fields:
+            - from: "msg"
+            - to: "message"
+          ignore_missing: true
+
+output.elasticsearch:
+  hosts: [ "http://elasticsearch:9200" ]
+
+setup.kibana:
+  host: "http://kibana:5601"

@@ -2,21 +2,19 @@ package main
 
 import (
 	"LogSentinel/config"
-	"log"
+	"LogSentinel/fetch"
+	"LogSentinel/utils"
 )
 
 func main() {
+	logger := utils.GetLogger()
+	logger.Info("LogSentinel started")
+
 	_, err := config.LoadConfig()
 	if err != nil {
-		log.Fatalf("failed to load config\n%v", err)
+		logger.Error(err.Error())
+		return
 	}
 
-	//watcher := collector.LogWatcher{
-	//	FilePath: "./temp.log",
-	//	Offset:   "",
-	//}
-	//if err := watcher.Watch(); err != nil {
-	//	panic(err)
-	//}
-
+	fetch.K8sPodLogs()
 }

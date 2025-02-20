@@ -2,19 +2,19 @@ package config
 
 import (
 	"errors"
-	"fmt"
 	"gopkg.in/yaml.v3"
-	"log"
 	"os"
-	"strings"
 	"sync"
 )
 
 type Config struct {
-	Watch []struct {
-		Path string `yaml:"path"`
-		Name string `yaml:"name"`
-	} `yaml:"watch"`
+	Kube []struct {
+		Name         string `yaml:"name"`
+		NameSpace    string `yaml:"namespace"`
+		ServiceLabel string `yaml:"serviceLabel"`
+		LogPath      string `yaml:"logPath"`
+		Format       string `yaml:"format"`
+	}
 }
 
 var (
@@ -23,22 +23,28 @@ var (
 )
 
 func LoadConfig() (*Config, error) {
-	var err error
+	var e error
 	once.Do(func() {
-		configFilePath := getLogSentinelConfigPath()
-		if configFilePath == "" {
-			err = errors.New("config file path is empty")
+		configFilePath, err := getLogSentinelConfigPath()
+		if err != nil {
+			e = err
 			return
 		}
-		log.Println("Loading config from", configFilePath)
 		instance, err = loadConfig(configFilePath)
-		printWatchList(instance)
+		if err != nil {
+			e = err
+			return
+		}
 	})
-	return instance, err
+	return instance, e
 }
 
-func getLogSentinelConfigPath() string {
-	return os.Getenv("LOG_SENTINEL_CONFIG_PATH")
+func getLogSentinelConfigPath() (string, error) {
+	ret := os.Getenv("LOG_SENTINEL_CONFIG_PATH")
+	if ret == "" {
+		return "", errors.New("LOG_SENTINEL_CONFIG_PATH is not set")
+	}
+	return ret, nil
 }
 
 func loadConfig(configFilePath string) (*Config, error) {
@@ -52,15 +58,4 @@ func loadConfig(configFilePath string) (*Config, error) {
 		return nil, err
 	}
 	return &config, nil
-}
-
-func printWatchList(cfg *Config) {
-	var sb strings.Builder
-
-	sb.WriteString(fmt.Sprintf("Watching %d files\n", len(cfg.Watch)))
-	for _, w := range cfg.Watch {
-		sb.WriteString(fmt.Sprintf("\t%s\t%s\n", w.Name, w.Path))
-	}
-
-	log.Println(sb.String())
 }
