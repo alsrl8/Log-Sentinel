@@ -2,8 +2,9 @@ package main
 
 import (
 	"LogSentinel/config"
-	"LogSentinel/fetch"
+	"LogSentinel/ui"
 	"LogSentinel/utils"
+	"sync"
 )
 
 func main() {
@@ -16,5 +17,12 @@ func main() {
 		return
 	}
 
-	fetch.K8sPodLogs()
+	var wg sync.WaitGroup
+	wg.Add(1)
+	go func() {
+		ui.ShowMenu()
+		wg.Done()
+	}()
+	wg.Wait()
+	logger.Info("LogSentinel stopped")
 }

@@ -3,6 +3,7 @@ filebeat.inputs:
     enabled: true
     paths:
       - /logs/*.ndjson
+      - /logs/*.log
     json.keys_under_root: true
     json.add_error_key: true
     processors:

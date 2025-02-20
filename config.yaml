@@ -4,3 +4,8 @@ kube:
     serviceLabel: app=dclo-api
     logPath: /app/logs/app.ndjson
     format: ndjson
+  - name: k8s_kv_pod
+    namespace: dclo-api-ns
+    serviceLabel: app=dclo-key-validation
+    logPath: /app/logs/app.log
+    format: log

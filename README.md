@@ -13,11 +13,16 @@
 - `LOG_SENTINEL_CONFIG_PATH`
     - config file path
 
+### Config file
+
+- 이 Application은 설정 관리를 위해 `config.yaml` file을 사용합니다.
+- [config.yaml](./docs/configuration.md)
+
+
 ## Features
 
-1. Kibana UI
+1. [Kibana UI](http://localhost:5601)
     - 수집한 log file을 ElasticSearch와 kibana를 사용하여 분석 및 모니터링 합니다.
-    - `http://localhost:5601`
 
 ## [Docker-compose](./docs/docker_compose.md)
 

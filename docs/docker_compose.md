@@ -1,6 +1,6 @@
 # Docker Compose
 
-이 Application은 `docker-compose.yaml` 파일을 사용하여 로컬(Local) 환경에서 다음과 같은 세 가지 컨테이너를 배포 및 동작시킵니다:
+이 Application은 `docker-compose.yaml` 파일을 사용하여 로컬(Local) 환경에서 다음과 같은 세 가지 컨테이너를 배포 및 동작시킵니다j.
 
 1. **Elasticsearch**
 2. **Kibana**
