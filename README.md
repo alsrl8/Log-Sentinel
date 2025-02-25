@@ -18,7 +18,6 @@
 - 이 Application은 설정 관리를 위해 `config.yaml` file을 사용합니다.
 - [config.yaml](./docs/configuration.md)
 
-
 ## Features
 
 1. [Kibana UI](http://localhost:5601)
@@ -27,3 +26,14 @@
 ## [Docker-compose](./docs/docker_compose.md)
 
 ## [Filebeat](./docs/filebeat.md)
+
+## Deployment
+
+- docker compose up
+  ```shell
+  docker-compose up
+    ```
+- docker compose down with removing volumes
+    ```shell
+    docker-compose down -v
+    ```
