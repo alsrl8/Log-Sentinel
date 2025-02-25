@@ -29,9 +29,9 @@
 
 ## Deployment
 
-- docker compose up
+- docker compose up on detach mode
   ```shell
-  docker-compose up
+  docker-compose up -d
     ```
 - docker compose down with removing volumes
     ```shell
