@@ -26,7 +26,13 @@ func K8sPodLogs() {
 			defer wg.Done()
 			logger.Info(fmt.Sprintf("Fetching logs for pod: %s (namespace: %s)", podLog.PodName, podLog.Namespace))
 
-			cmd := exec.Command("kubectl", "exec", "-i", podLog.PodName, "-n", podLog.Namespace, "--", "sed", "-n", "1,100p", podLog.LogPath)
+			var cmd *exec.Cmd
+			if podLog.Container != "" {
+				cmd = exec.Command("kubectl", "exec", "-i", podLog.PodName, "-n", podLog.Namespace, "-c", podLog.Container, "--", "sed", "-n", "1,100p", podLog.LogPath)
+			} else {
+				cmd = exec.Command("kubectl", "exec", "-i", podLog.PodName, "-n", podLog.Namespace, "--", "sed", "-n", "1,100p", podLog.LogPath)
+			}
+
 			output, err := cmd.CombinedOutput()
 
 			if err != nil {
@@ -36,7 +42,7 @@ func K8sPodLogs() {
 
 			logContent := strings.TrimSpace(string(output))
 			if logContent == "" {
-				logger.Warn(fmt.Sprintf("No logs found for pod %s", podLog.PodName))
+				logger.Warn(fmt.Sprintf("No logs found for pod %s", fmt.Sprintf("%s:%s", podLog.PodName, podLog.LogPath)))
 				return
 			}
 
@@ -77,6 +83,7 @@ func getPodLogs() []*PodLog {
 			Namespace: kube.NameSpace,
 			LogPath:   kube.LogPath,
 			FetchDest: fetchDest,
+			Container: kube.Container,
 		}
 		pods = append(pods, &podLog)
 	}

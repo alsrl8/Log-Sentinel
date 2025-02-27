@@ -14,6 +14,7 @@ type Config struct {
 		ServiceLabel string `yaml:"serviceLabel"`
 		LogPath      string `yaml:"logPath"`
 		Format       string `yaml:"format"`
+		Container    string `yaml:"container"`
 	}
 }
 

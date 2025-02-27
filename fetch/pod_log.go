@@ -5,4 +5,5 @@ type PodLog struct {
 	Namespace string
 	LogPath   string
 	FetchDest string
+	Container string
 }

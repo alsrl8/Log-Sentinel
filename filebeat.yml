@@ -11,6 +11,7 @@ filebeat.inputs:
           field: timestamp
           layouts:
             - '2006-01-02T15:04:05.000Z07:00'
+            - '2006-01-02T15:04:05'
       - rename:
           fields:
             - from: "msg"

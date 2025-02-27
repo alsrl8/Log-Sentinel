@@ -4,8 +4,28 @@ kube:
     serviceLabel: app=dclo-api
     logPath: /app/logs/app.ndjson
     format: ndjson
+    container: dclo-api
+  - name: k8s_api_pod_debug
+    namespace: dclo-api-ns
+    serviceLabel: app=dclo-api
+    logPath: /app/logs/debug.ndjson
+    format: ndjson
+    container: dclo-api
+  - name: k8s_api_pod_error
+    namespace: dclo-api-ns
+    serviceLabel: app=dclo-api
+    logPath: /app/logs/err.ndjson
+    format: ndjson
+    container: dclo-api
+
   - name: k8s_kv_pod
     namespace: dclo-api-ns
     serviceLabel: app=dclo-key-validation
-    logPath: /app/logs/app.log
-    format: log
+    logPath: /app/logs/debug.ndjson
+    format: ndjson
+
+  - name: k8s_admin_api_pod
+    namespace: dclo-admin-api-ns
+    serviceLabel: app=dclo-admin-api
+    logPath: /app/logs/debug.ndjson
+    format: ndjson
