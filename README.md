@@ -23,9 +23,9 @@
 1. [Kibana UI](http://localhost:5601)
     - 수집한 log file을 ElasticSearch와 kibana를 사용하여 분석 및 모니터링 합니다.
 
-## [Docker-compose](./docs/docker_compose.md)
+### [Docker-compose](./docs/docker_compose.md)
 
-## [Filebeat](./docs/filebeat.md)
+### [Filebeat](./docs/filebeat.md)
 
 ## Deployment
 
@@ -37,3 +37,11 @@
     ```shell
     docker-compose down -v
     ```
+  
+## Log format
+
+권장하는 log format은 `ndjson` file 형식입니다.
+
+구체적인 format은 아래 문서를 참조해주세요.
+
+
